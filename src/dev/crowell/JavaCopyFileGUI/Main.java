@@ -17,7 +17,7 @@ public class Main extends Application {
     public void start(Stage primaryStage) throws Exception{
         Parent root = FXMLLoader.load(getClass().getResource("mainWindow.fxml"));
         primaryStage.setTitle("JavaCopyFileGUI");
-        primaryStage.getIcons().add(new Image("file:/stor/Portfolio/Projects/CopyFileGUI/src/include/Icon16.png"));
+        primaryStage.getIcons().add(new Image("META-INF/Icon16.png"));
         primaryStage.setScene(new Scene(root, 400, 275));
         primaryStage.show();
     }
