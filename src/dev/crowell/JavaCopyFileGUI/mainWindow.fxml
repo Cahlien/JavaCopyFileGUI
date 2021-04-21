@@ -13,13 +13,13 @@
         <GridPane xmlns:fx="http://javafx.com/fxml" alignment="center" hgap="10" vgap="10">
             <Label GridPane.rowIndex="0" GridPane.columnIndex="0" text="Source" alignment="CENTER_RIGHT"/>
             <HBox GridPane.rowIndex="0" GridPane.columnIndex="1" GridPane.columnSpan="2">
-                <TextField fx:id="sourceEntry" prefWidth="250"/>
-                <Button prefWidth="25" onAction="#OnSourceButtonClicked"/>
+                <TextField fx:id="sourceEntry" prefWidth="200"/>
+                <Button onAction="#OnSourceButtonClicked" text="Browse"/>
             </HBox>
             <Label GridPane.rowIndex="1" GridPane.columnIndex="0" text="Destination" alignment="CENTER_RIGHT"/>
             <HBox GridPane.rowIndex="1" GridPane.columnIndex="1" GridPane.columnSpan="2">
-                <TextField fx:id="destinationEntry" prefWidth="250"/>
-                <Button prefWidth="25" onAction="#OnDestinationButtonClicked"/>
+                <TextField fx:id="destinationEntry" prefWidth="200"/>
+                <Button onAction="#OnDestinationButtonClicked" text="Browse"/>
             </HBox>
             <HBox GridPane.rowIndex="2" GridPane.columnIndex="1">
                 <Button prefWidth="150" prefHeight="30" text="Copy" onAction="#OnCopyClicked">
