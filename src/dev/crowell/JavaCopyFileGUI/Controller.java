@@ -1,7 +1,9 @@
 package dev.crowell.JavaCopyFileGUI;
 
 import javafx.application.Platform;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
@@ -17,30 +19,42 @@ public class Controller {
     private TextField destinationEntry;
 
     @FXML
-    public void OnSourceButtonClicked()
+    private Button browseDestination;
+
+    @FXML
+    private Button browseSource;
+
+    @FXML
+    private Button copyButton;
+
+    @FXML
+    private void initialize()
     {
-        try
-        {
-            FileChooser sourceChooser = new FileChooser();
-            sourceEntry.setText(sourceChooser.showOpenDialog(null).getAbsolutePath());
-        }
-        catch(RuntimeException e)
-        {
-            // Do a lot of nothing here...
-        }
+        copyButton.setDisable(true);
+    }
+    @FXML
+    public void OnKeyReleased()
+    {
+        boolean isDisabled = sourceEntry.getText().isEmpty() || sourceEntry.getText().strip().isEmpty()
+                || destinationEntry.getText().isEmpty() || destinationEntry.getText().strip().isEmpty();
+
+        copyButton.setDisable(isDisabled);
+
     }
 
     @FXML
-    public void OnDestinationButtonClicked()
+    public void OnBrowseButtonClicked(ActionEvent event)
     {
-        FileChooser destinationChooser = new FileChooser();
-        try
+        FileChooser choice = new FileChooser();
+
+        if(event.getSource().equals(browseSource))
         {
-            destinationEntry.setText(destinationChooser.showOpenDialog(null).getAbsolutePath());
+            sourceEntry.setText(choice.showOpenDialog(null).getAbsolutePath());
         }
-        catch(RuntimeException e)
+
+        if(event.getSource().equals(browseDestination))
         {
-            // Do nothing at all...
+            destinationEntry.setText(choice.showOpenDialog(null).getAbsolutePath());
         }
     }
 
