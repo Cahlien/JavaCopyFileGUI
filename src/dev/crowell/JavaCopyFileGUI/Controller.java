@@ -6,7 +6,6 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.stage.FileChooser;
-import javafx.stage.Stage;
 
 import java.io.File;
 import java.io.IOException;
@@ -46,28 +45,30 @@ public class Controller {
     public void OnBrowseButtonClicked(ActionEvent event)
     {
         FileChooser choice = new FileChooser();
-
-        if(event.getSource().equals(browseSource))
+        File filename = choice.showOpenDialog(null);
+        if(filename != null)
         {
-            sourceEntry.setText(choice.showOpenDialog(null).getAbsolutePath());
-        }
 
-        if(event.getSource().equals(browseDestination))
-        {
-            destinationEntry.setText(choice.showOpenDialog(null).getAbsolutePath());
+            if (event.getSource().equals(browseSource))
+            {
+                sourceEntry.setText(filename.getAbsolutePath());
+            }
+
+            if (event.getSource().equals(browseDestination))
+            {
+                destinationEntry.setText(filename.getAbsolutePath());
+            }
         }
     }
 
     @FXML
     public void OnOKClicked()
     {
-        try
-        {
-            Main.CopyFile(sourceEntry.getText(), destinationEntry.getText());
-        } catch (IOException e)
-        {
-            e.printStackTrace();
-        }
+            if(!copyButton.isDisabled())
+            {
+                OnCopyClicked();
+            }
+
         Platform.exit();
     }
 
@@ -80,12 +81,23 @@ public class Controller {
     @FXML
     public void OnCopyClicked()
     {
-        try
+        Runnable task = new Runnable()
         {
-            Main.CopyFile(sourceEntry.getText(), destinationEntry.getText());
-        } catch (IOException e)
-        {
-            e.printStackTrace();
-        }
+
+            @Override
+            public void run()
+            {
+                try
+                {
+                    Main.CopyFile(sourceEntry.getText(), destinationEntry.getText());
+                }
+                catch (IOException e)
+                {
+                    e.printStackTrace();
+                }
+            }
+        };
+
+        new Thread(task).start();
     }
 }
